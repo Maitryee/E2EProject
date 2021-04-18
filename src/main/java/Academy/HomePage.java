@@ -13,12 +13,13 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class HomePage extends base {
+
     public WebDriver driver;
 
     @BeforeTest
     public void initialize() throws IOException
     {
-        driver = initializeDriver();//initialize the driver by calling the method from base class
+        driver = initializeDriver();
 
 
     }
@@ -26,11 +27,10 @@ public class HomePage extends base {
     public void basePageNavigation(String Username,String Password,String text) throws IOException
     {
         driver.get(prop.getProperty("url"));
-        //System.out.println(prop.values());
-        LandingPage l = new LandingPage(driver);// instantiating the class LandingPage so that we use the methods of that class
-                                           // with its object -l
-        l.getLogin().click(); //we will use the method getLogin here so that we dont have to hardcode it so that in future if the
-                    // login object in the page is changed then we have to go to every tc where login is used and change it.
+        LandingPage landingPage = new LandingPage(driver);// instantiating the class LandingPage so that we use the methods of that class
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        landingPage.getLogin().click();
         LoginPage lp = new LoginPage(driver);
         lp.getEmail().sendKeys(Username);
         lp.getPassword().sendKeys(Password);

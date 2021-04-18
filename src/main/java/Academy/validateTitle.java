@@ -26,8 +26,8 @@ public class validateTitle extends base {
         driver = initializeDriver();//initialize the driver by calling the method from base class
        driver.get(prop.getProperty("url"));
 
-        LandingPage l = new LandingPage(driver);// instantiating the class LandingPage so that we use the methods of that class
-        // with its object -l
+        LandingPage l = new LandingPage(driver);
+        l.noThanks().click();
        Assert.assertEquals( l.getTitle().getText(),"Featured Courses");
 
     }

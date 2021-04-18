@@ -1,0 +1,75 @@
+Q.Why do we use WebDriver driver= new ChromeDriver();?
+
+If you use ChromeDriver driver = new ChromeDriver(); the ChromeDriver instance which will get created through that we will
+be only able to invoke and act on the methods implemented by ChromeDriver and supported by Chrome Browser only.
+To act with other browsers we have to specifically create individual objects as below :
+FirefoxDriver driver =  new FirefoxDriver();
+InternetExplorerDriver driver = new InternetExplorerDriver();
+WebDriver Interface
+From Selenium perspective, the WebDriver Interface is similar like a agreement which the 3rd party Browser Vendors like
+Mozilla, Chrome, Internet Explorer, Safari, etc have to adhere and implement the same. This would in-turn help the end-users
+ to use the exposed APIs to write a common code and implement the functionalities across all the available browsers without
+ any change.
+
+WebDriver driver = new ChromeDriver();
+Through WebDriver driver = new ChromeDriver(); we are creating an instance of the WebDriver interface and casting it to
+ChromeDriver class. All the browser drivers like:
+
+                    FirefoxDriver
+                    ChromeDriver
+                    InternetExplorerDriver
+implemented the WebDriver interface So if we use WebDriver driver, then we can use the already initialized driver
+(as common object variable) for all browsers we want to automate e.g. Mozilla, Chrome, InternetExplorer, Edge, Opera, Safari.
+
+driver = new ChromeDriver(); WebDriver is an interface and all the methods which are declared in Webdriver interface are
+implemented by respective driver class. ... Here, WebDriver is an interface, driver is a reference variable, FirefoxDriver()
+ is a Constructor, new is a keyword, and new FirefoxDriver() is an Object.
+
+
+ 2.//configuring the system properties of chrome
+The setProperty method enables QAs to set the properties for the desired browser to be used in test automation.The
+setProperty method has two attributes – “propertyName” and “value.” The propertyName represents the name of the
+browser-specific driver,and the value points to the path of that browser driver.
+  -->System.setProperty("webdriver.chrome.driver", "C:\\Selenium jars and drivers\\Drivers\\Chrome\\chromedriver.exe");
+
+
+Q3.What is the use of config.properties file in selenium
+  Properties are used to externalize the data which is configurable and if you put that data in your code (test script)
+  you have to build the code each time you want to change the value of the property. The main advantage of properties
+  is that they are outside your source code and you can change them anytime.Each parameter is stored as a pair of strings,
+  one storing the name of the parameter (called the key), and the other storing the value.Whatever constant and generic
+  entities are there in our project, we can define in config.properties file.
+  How to create config.properties file:
+  Open eclipse. Right click on the project, select New→ file→ give file name as “config.properties”→ Finish. We cannot
+  write java code in this. It is simple text file. Make sure to use extension as “properties” and not “property“.
+  Write the following content in properties file in key: value pair format:
+  name= Ajay
+  age= 23
+  url= https://www.google.com/
+  browser= chrome
+  How to read config.properties file:
+  Create a java class named ReadPropertyFile.java inside the same project where config.properties file
+  is created → include “public static main” method and Finish.
+  First we have to create object of Properties class.
+  Properties prop=new Properties(); // This class is available in java
+  3. Create object of FileInputStream and give property file location as fileInputStream parameter
+   (which property file is to be read)
+  FileInputStream ip= new FileInputStream(“location of property file”);
+  4. Now we have to load the property file. Use properties object to load property file
+  prop.load(“fileInputStream object”)
+  Final code should look something like this:
+  Properties prop=new Properties();
+  FileInputStream ip= new FileInputStream(“home/username/PrjtName/src/config.properties”);
+  prop.load(ip);
+  5. Now, once the config file is loaded, we need to read the properties of config file. Properties object gives us
+   a .getProperty method which takes the key of the property as a parameter and return the value of the matched key from
+   the .properties file.
+  System.out.println(prop.getProperty(“name”));
+  - Make sure you use the same key as mentioned in properties file. This is case sensitive.
+  - If you use “Name” (System.out.println(prop.getProperty(“Name”))) instead of “name”, it will print null in console,
+  as “Name” is undefined.
+  - Also, if you comment “name” property by typing “#” in front of it in config.properties file and try to
+  print “name” property (System.out.println(prop.getProperty(“name”))), it will print null, as “name” is commented in
+  properties file and hence cannot be accessed.
+  - Now in future, if your browser is firefox, you just need to update your properties file, instead of editing the
+  class files/ test-scripts. Avoid to make changes in script. Nothing should be hard-coded at test-script level.
